@@ -7,6 +7,9 @@ from struct import unpack_from, pack
 # Internal representation of walls
 from walls import wallArr
 
+# Internal representation of intersections
+from intersections import intersectionArr
+
 # Buffer to collect messages to write to the server
 from collections import deque
 
@@ -416,6 +419,10 @@ class GameState:
 		# 31 * 4 bytes = 31 * (32-bit integer bitset)
 		self.wallArr: list[int] = wallArr
 
+		# Internal representation of intersections:
+		# 31 * 4 bytes = 31 * (32-bit integer bitset)
+		self.intersectionArr: list[int] = intersectionArr
+
 		#--- Important game state attributes (from game engine) ---#
 
 		# 2 bytes
@@ -649,7 +656,8 @@ class GameState:
 		'''
 		Helper function to check if a pellet is at a given location
 		'''
-
+		if self.wallAt(row, col):
+			return False
 		return bool((self.pelletArr[row] >> col) & 1)
 
 	def superPelletAt(self, row: int, col: int) -> bool:
@@ -743,6 +751,18 @@ class GameState:
 
 		# Return whether there is a wall at the location
 		return bool((self.wallArr[row] >> col) & 1)
+
+	def intersectionAt(self, row: int, col: int) -> bool:
+		'''
+		Helper function to check if a wall is at a given location
+		'''
+
+		# Check if the position is off the grid, and return true if so
+		if (row < 0 or row >= 31) or (col < 0 or col >= 28):
+			return True
+
+		# Return whether there is a wall at the location
+		return bool((self.intersectionArr[row] >> col) & 1)
 
 	def display(self):
 		'''
