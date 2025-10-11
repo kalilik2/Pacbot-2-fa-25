@@ -1,7 +1,6 @@
 from gameState import *
 
 class PacbotAgent:
-
     def __init__(self, state):
         self.state: GameState = state
         self.tmp_state: GameState = state
