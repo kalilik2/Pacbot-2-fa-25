@@ -1,2 +1,9 @@
 *.exe
 pacbot_server
+
+# Python stuff
+pac-venv/
+
+# Rust stufsfdfsd
+target/
+Cargo.lock
