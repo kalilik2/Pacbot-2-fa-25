@@ -1,0 +1,6 @@
+# Python
+pac-venv/
+
+# Rust Stuffy
+Cargo.lock
+target/
